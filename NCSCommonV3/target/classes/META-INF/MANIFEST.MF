@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: NCSCommonV3
+Implementation-Version: v3
+Build-Jdk-Spec: 1.8
+Created-By: Maven Integration for Eclipse
+Main-Class: com.sunilos.NCSCommApp
+
