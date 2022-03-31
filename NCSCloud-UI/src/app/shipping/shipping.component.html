@@ -208,8 +208,11 @@
   <div class="table-responsive pl-4 pr-4">
     <hr>
      <div *ngIf="sBox">
-<h1>Billing</h1> <p> same as a Shipping Address <input type="checkbox" (change)="checkedBill($event)"> </p>
-
+       <!-- <div *ngFor="let b of bForm.list;let i = index" > -->
+         <!-- <div *ngFor=" let e of form.list;" > -->
+<h1>Billing</h1> <p> same as a Shipping Address <input type="checkbox" (change)="checkedBill($event)" (click)="checkAdd(b.sid)"> </p>
+<!-- </div> -->
+<!-- </div> -->
 <form class="form-inline my-2">
   <!-- <label for="name" class="ml-sm-2">  Name:</label>
 
@@ -250,6 +253,7 @@
           <li><b>PinCode:- </b>{{b.pincode}}</li>
           <li><b>City:- </b>{{b.city}}</li>
           <li><b>State:- </b> {{b.state}} </li>
+        
          
         </ol> 
       

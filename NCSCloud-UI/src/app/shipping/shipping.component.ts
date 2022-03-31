@@ -367,8 +367,16 @@ let url ="http://localhost:9102/NCSCloud/Billing/delete/"+id
      console.log( _self.bBox)
  }
 
+
+
   }
 
+  checkAdd(b:number){
+
+    // console.log("shipping id ********************** "+a)
+    console.log("billing id  ********************** "+b)
+
+  }
   
 
   getShipping(id) {
@@ -778,6 +786,7 @@ console.log("inside shipping get----------------")
     });
     }
 
+    
 
 
     getB(id){

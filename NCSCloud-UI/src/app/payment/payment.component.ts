@@ -220,7 +220,7 @@ if(lenth==0){
       if (res.success) {
  
       _self.orderNo = res.result.data[0]
-        console.log("max order no-------------"+ _self.orderNo );
+        console.log("max order no in payment component=========-------------"+ _self.orderNo );
         _self.addOrder(_self.orderNo)
         location.href = "http://localhost:4200/#/success-order"
       }
@@ -253,15 +253,20 @@ if(lenth==0){
     let total_quantity=0;
     let oId:number=no+1;
 
-     console.log("in add order of payment...................................."+no)
+     console.log("in add order of payment orderNo--------...................................."+no)
      
      console.log("list size in payment=====************ "+this.form.list.length);
-     
-     for( let i =0; i < this.form.list.length; i++){
+    //  total_quantity=this.form.list[i]['quantity']+total_quantity;
+    
 
-      total=this.form.list[i]['price']+total;
-      total_quantity=this.form.list[i]['quantity']+total_quantity;
+     for( let i =0; i <  this.form.list.length; i++){
+     var value  = this.form.list[i];
+     total+=value.price*value.quantity; 
+    //  total=this.form.list[i]['price']+total;
+       total_quantity=this.form.list[i]['quantity']+total_quantity;
+      
      }
+
      console.log("--------------------->>>>>>>>>>>>> "+total);
      console.log("----------total_quantity----------->>>>>>>>>>>>> "+total_quantity);
      for( let i =0; i < this.form.list.length; i++){
@@ -318,19 +323,21 @@ if(lenth==0){
      }
     }
 //add order table on the basis of orderId
+total=total+40;
 console.log("total price after lopp----------------"+total);
 console.log("total quantity after loop----------------"+total_quantity);
 let discount:number=10;
 
 let tp=total/discount;
 tp=total-tp;
+
 console.log("total price after discount----------------"+tp);
 let order={
   total_price:tp,
   quantity:total_quantity,
   description:"Thankyou for shopping from Rays Ecom",
   discount:discount,
-  orderId:oId
+  order_id:oId
 
 }
 //calling order to Add OrderData

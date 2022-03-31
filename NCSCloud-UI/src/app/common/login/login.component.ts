@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseCtl } from '../base.component';
 import { GlobalConstants } from '../GlobalConstants ';
 import { EventService } from '../service/event.service';
 import { ServiceLocatorService } from '../service/service-locator.service';
+import { GoogleLoginProvider, AuthService } from 'angular-6-social-login';  
+import { SocialLoginModule, AuthServiceConfig } from 'angular-6-social-login';  
+import { UtilserviceService } from 'src/app/utilservice.service';
+import { Socialusers } from './Socialusers';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +15,17 @@ import { ServiceLocatorService } from '../service/service-locator.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent extends BaseCtl {
-
+  response;  
+    socialusers=new Socialusers();  
   public param = "";
 
   constructor(public locator: ServiceLocatorService,
-    private eService: EventService, public route: ActivatedRoute) {
+    private eService: EventService, public route: ActivatedRoute,
+    /////
+    private router: Router ,
+    public OAuth: AuthService,  
+    private SocialloginService: UtilserviceService, 
+    ) {
     super(locator.endpoints.AUTH, locator, route);
     let _self = this;
     //this.form.preload["applist"] = [];
@@ -41,7 +51,39 @@ export class LoginComponent extends BaseCtl {
       _self.locator.router.navigateByUrl('/dashboard');
     }
   }
+/////////////////
 
+public socialSignIn(socialProvider: string) {  
+  let socialPlatformProvider;  
+   if (socialProvider === 'google') {
+     console.log("google login---------------")  
+    socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;  
+  }  
+
+  this.OAuth.signIn(socialPlatformProvider).then(socialusers => {  
+    console.log(socialProvider , socialusers);  
+    console.log("this is social user -------------------------data===="+socialusers.name);  
+    this.Savesresponse(socialusers);  
+
+  });  
+}  
+Savesresponse(socialusers: Socialusers) {  
+  console.log("inside save response ===---------------"+socialusers.name)  
+  console.log("call save response from service===---------------") 
+  localStorage.setItem('socialusers', JSON.stringify( socialusers));   
+  this.SocialloginService.Savesresponse(socialusers).subscribe((res: any) => {  
+    
+    console.log(res);  
+    this.socialusers=res;  
+    this.response = res.userDetail;  
+    localStorage.setItem('socialusers', JSON.stringify( this.socialusers));  
+    console.log("from local storage-----"+localStorage.setItem('socialusers', JSON.stringify(this.socialusers)));  
+    this.router.navigate([`/dashboard`]);  
+  })  
+}  
+
+
+  ///////////////////
   populateForm(form, data) {
     super.populateForm(form, data);
     form.data.loginId = data.loginId;

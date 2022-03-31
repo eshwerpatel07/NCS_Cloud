@@ -22,19 +22,27 @@
             </div>
         </div>
         <div class="form-group form-row">
-            <div class="col-sm-3 d-flex justify-content-end">
+            <div class="col-sm-4 d-flex justify-content-end">
                 <button class="btn btn-outline-primary btn-sm" type="submit" (click)="signIn()" 
                 [disabled]="!loginform.valid" 
-                ><i
-                        class="fa fa-save"  ></i> SignIn</button> &nbsp;
+                >
+                <i class="fa fa-save"  ></i> SignIn</button>
+                         &nbsp;
                 <a class="btn btn-outline-secondary  btn-sm"  routerLink="/signup"><i
                     class="fa fa-save"></i> Sign Up</a>
+
+                   &nbsp;
+                        <!-- <button (click)="socialSignIn('google')" class="btn btn-outline-secondary  btn-sm">  
+                            Login with Google  
+                        </button>   -->
+                      
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-sm-3 d-flex justify-content-end">
                 <a class=""  (click)="forgotPassword()" >Forgot password ?</a>
             </div>
-        </div>        
+        </div> 
+             
     </form>
 </div>

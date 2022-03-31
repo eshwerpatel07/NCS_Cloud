@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
 //Common Component Start
 import { SignupComponent } from './common/signup/signup.component';
 import { LoginComponent } from './common/login/login.component';
@@ -60,9 +61,26 @@ import { BussinessSettingComponent } from './bussiness-setting/bussiness-setting
 import { SellerLoginComponent } from './seller-login/seller-login.component';
 import { DatePipe } from '@angular/common';
 import { OrderItemComponent } from './order-item/order-item.component';
-
+import { DateFormaterPipe } from './date-formater.pipe';
+import { GoogleLoginProvider, AuthService } from 'angular-6-social-login';  
+import { SocialLoginModule, AuthServiceConfig } from 'angular-6-social-login'; 
 const routes: Routes = [
 ];
+
+
+
+export function socialConfigs() { 
+  console.log("inside social configuration in app module ts-----------") 
+  const config = new AuthServiceConfig(  
+    [  
+     
+      {  
+        id: GoogleLoginProvider.PROVIDER_ID,  
+        provider: new GoogleLoginProvider('667203440057-gsoaa2b7p77n7ujksih76pm5n32urf9s.apps.googleusercontent.com')  
+      }  
+    ]  );  
+    return config;  
+  }  
 
 @NgModule({
   declarations: [
@@ -108,6 +126,7 @@ const routes: Routes = [
     BussinessSettingComponent,
     SellerLoginComponent,
     OrderItemComponent,
+    DateFormaterPipe,
  
     
     //Common Compnent Start
@@ -118,6 +137,7 @@ const routes: Routes = [
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+
     RouterModule.forRoot(routes, { useHash: true })    
   ],
   providers: [
@@ -129,7 +149,13 @@ const routes: Routes = [
     DataValidatorService,
     EventService,
       UtilserviceService,
-  ],
+    
+      AuthService,  
+      {  
+        provide: AuthServiceConfig,  
+        useFactory: socialConfigs  
+      }  
+    ],  
   bootstrap: [AppComponent]
 })
 export class AppModule { 

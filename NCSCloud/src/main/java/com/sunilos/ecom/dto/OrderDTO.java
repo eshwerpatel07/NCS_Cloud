@@ -42,7 +42,7 @@ public class OrderDTO extends BaseDTO {
 
 	
 	@Column(name = "ORDER_ID", length = 50)
-	protected long orderId;
+	protected long order_id;
 	@Column(name = "TOTAL_PRICE", length = 50)
 	public Long total_price;
 	@Column(name = "QUANTITY", length = 50)
@@ -51,17 +51,40 @@ public class OrderDTO extends BaseDTO {
 	public String discount;
 	@Column(name = "DESCRIPTION", length = 50)
 	public String description;
+
+	@Column(name = "ORDER_DATE", length = 50)
+	protected Timestamp order_date;
+
+	@Column(name = "DELIVERY_DATE", length = 50)
+	protected String delivery_date;
 	
 	
 		
 
 	
-	public long getOrderId() {
-		return orderId;
+	
+	public Timestamp getOrder_date() {
+		return order_date;
 	}
 
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public void setOrder_date(Timestamp order_date) {
+		this.order_date = order_date;
+	}
+
+	public String getDelivery_date() {
+		return delivery_date;
+	}
+
+	public void setDelivery_date(String delivery_date) {
+		this.delivery_date = delivery_date;
+	}
+
+	public long getOrder_id() {
+		return order_id;
+	}
+
+	public void setOrder_id(long order_id) {
+		this.order_id = order_id;
 	}
 
 	public Long getTotal_price() {
@@ -101,21 +124,21 @@ public class OrderDTO extends BaseDTO {
 	@Override
 	public LinkedHashMap<String, String> orderBY() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		map.put("orderId", "desc");
+		map.put("order_id", "desc");
 		return map;
 	}
 
 	@Override
 	public LinkedHashMap<String, Object> uniqueKeys() {
 		LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
-		map.put("orderId", orderId);
+		map.put("order_id", order_id);
 		return map;
 	}
 
 	@Override
 	public String getValue() {
 		// TODO Auto-generated method stub
-		return orderId+"";
+		return order_id+"";
 	}
 
 }

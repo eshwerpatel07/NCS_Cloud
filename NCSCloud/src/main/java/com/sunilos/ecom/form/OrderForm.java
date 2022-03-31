@@ -25,7 +25,10 @@ public class OrderForm extends BaseForm {
 
 	
 	
-	
+	private static final String DATE_FORMATTER = "dd-MM-yyyy";
+
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
+
 	
 	
 
@@ -39,7 +42,7 @@ public class OrderForm extends BaseForm {
 	
 	
 
-protected long orderId;
+protected long order_id;
 	
 	public Long total_price;
 	
@@ -49,15 +52,35 @@ protected long orderId;
 	
 	public String description;
 	
+	protected Timestamp order_date;
 
+		protected String delivery_date;
 	
 	
-	public long getOrderId() {
-		return orderId;
+	
+
+	public Timestamp getOrder_date() {
+			return order_date;
+		}
+
+		public void setOrder_date(Timestamp order_date) {
+			this.order_date = order_date;
+		}
+
+		public String getDelivery_date() {
+			return delivery_date;
+		}
+
+		public void setDelivery_date(String delivery_date) {
+			this.delivery_date = delivery_date;
+		}
+
+	public long getOrder_id() {
+		return order_id;
 	}
 
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public void setOrder_id(long order_id) {
+		this.order_id = order_id;
 	}
 
 	public Long getTotal_price() {
@@ -97,12 +120,16 @@ protected long orderId;
 	@Override
 	public BaseDTO getDto() {
 		OrderDTO dto = initDTO(new OrderDTO());
-		dto.setOrderId(orderId);
+		dto.setOrder_id(order_id);
 		dto.setTotal_price(total_price);
 		dto.setQuantity(quantity);
 		dto.setDiscount(discount);
 		dto.setDescription(description);
-
+		LocalDateTime ldt = LocalDateTime.now().plusDays(7);
+		String localDateFormate = ldt.format(formatter);
+		dto.setDelivery_date(localDateFormate);
+		
+		dto.setOrder_date(new Timestamp(new Date().getTime()));
 		
 		
 		return dto;

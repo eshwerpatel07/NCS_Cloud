@@ -35,9 +35,9 @@ public class OrderDAOImpl extends BaseDAOImpl<OrderDTO> implements OrderDAOInt {
 	public Class<OrderDTO> getDTOClass() {
 		return OrderDTO.class;
 	}
-
 	
 	
+		
 	
 	@Override
 	protected List<Predicate> getWhereClause(OrderDTO dto, CriteriaBuilder builder, Root<OrderDTO> qRoot) {
@@ -49,9 +49,9 @@ public class OrderDAOImpl extends BaseDAOImpl<OrderDTO> implements OrderDAOInt {
 			whereCondition.add(builder.like(qRoot.get("description"), dto.getDescription() + "%"));
 		}
 		
-		if (!isZeroNumber(dto.getOrderId())) {
+		if (!isZeroNumber(dto.getOrder_id())) {
 
-			whereCondition.add(builder.equal(qRoot.get("orderId"), dto.getOrderId() ));
+			whereCondition.add(builder.equal(qRoot.get("order_id"), dto.getOrder_id() ));
 		}
 
 		return whereCondition;

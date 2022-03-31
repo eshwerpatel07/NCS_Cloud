@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { GlobalConstants } from './common/GlobalConstants ';
 import { ActivatedRoute, NavigationStart } from '@angular/router';
 import { BaseCtl } from './common/base.component';
-
+import { AuthService,GoogleLoginProvider, SocialUser } from 'angular-6-social-login';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
