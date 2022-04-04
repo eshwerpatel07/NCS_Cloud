@@ -5,12 +5,12 @@
   <h2 align="left"> Order List </h2>
 
 
-  <form class="form-inline my-2">
+  <!-- <form class="form-inline my-2">
     <label for="orderId" class="ml-sm-2"> Order_Id:</label>
   
-    <input type="text" name="orderId" id="orderId" class="form-control form-control-sm ml-2" placeholder="Search By Order_Id"
-      [(ngModel)]="form.searchParams.orderId">
-  
+    <input type="text" name="order_id" id="order_id" class="form-control form-control-sm ml-2" placeholder="Search By Order_Id"
+      [(ngModel)]="form.searchParams.order_id">
+   -->
     <!-- <label for="name" class="ml-sm-2"> Description:</label>
   
     <input type="text" name="description" id="description" class="form-control form-control-sm ml-2"
@@ -39,12 +39,12 @@
     <!-- <label for="body" class="ml-sm-2">Price:</label>
       <input type="text" id="price" name="price" class="form-control form-control-sm ml-sm-2 " placeholder="price"
         [(ngModel)]="form.searchParams.price"> -->
-    <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+    <!-- <button (click)="search()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
       Search</button>
     <button (click)="get(0)" class="btn btn-outline-primary btn-sm ml-2" data-toggle="modal" data-target="#editModal"><i
         class="fa fa-plus"></i>
       Add</button> &nbsp;
-  </form>
+  </form> -->
   
   <!-- table start -->
   <div class="table-responsive pl-4 pr-4">
@@ -58,7 +58,7 @@
         <th>Quantity</th>
         <th>Discount</th>
         <th>Description</th>
-        <th align="right" >Action</th>
+        <th  >View</th>
       </tr>
     </thead>
     <tbody>
@@ -79,12 +79,17 @@
         <td>{{e.description}}</td>
         
         <td >
-          <div class="row"  >
-            <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
-              (click)="get(e.id)">
-              <i class="fa fa-edit"></i>
-            </button> &nbsp;
-            <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+          <!-- <div class="row"  > -->
+            <!-- <button title="view" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+              >
+              <i class="fa fa-eye"></i>
+            </button>
+            <input type="text"  name="order_id"  class="form-control form-control-sm ml-2"
+      placeholder="productName" [(ngModel)]="orderItemForm.searchParams.order_id" > -->
+      <button  (click)="searchItem(e.order_id)" title="view" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"><i class="fa fa-eye"></i>
+        </button> 
+        </td>
+            <!-- <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
               <i class="fa fa-trash"></i>
             </button>
           </div>
@@ -94,15 +99,15 @@
   </table>
   
   <!-- table end -->
-  </div>
+  <!-- </div> -->
   
   
   <!-- edit modal start -->
   
   <div class="modal" id="editModal" role="dialog">
     <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="model-dialog col-sm-6 mt-4  " role="document">
+      <div class="col-sm-2"></div>
+      <div class="model-dialog col-sm-8 mt-4  " role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Order_Item</h5>
@@ -111,84 +116,106 @@
             </button>
           </div>
           <div class="modal-body">
-            <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" novalidate>
-              <p>
-                <form-error [form]="form"></form-error>
-              </p>
+                    
+          
+          
+<div class="container">
+  <!-- <form class="form-inline my-2">
+    <label for="productName" class="ml-sm-2"> Product_Name:</label>
+
+    <input type="text" name="productName" id="productName" class="form-control form-control-sm ml-2"
+      placeholder="productName" [(ngModel)]="form.searchParams.productName">
+
+    <label for="orderId" class="ml-sm-2"> Search by OrderNo : </label>
+    <select [(ngModel)]="orderItemForm.searchParams.order_id" class="form-control form-control-sm ml-2" name="orderId">
+
+      <option style="font-weight: bold;" [value]=default [disabled]="true" disabled selected>-OrdeNo-</option>
+      <option *ngFor="let l of form.preload.orderNo" [value]="l.order_id">
+        {{l.order_id}}
+      </option>
+    </select>
+    <button (click)="searchItem()" class="btn btn-outline-primary btn-sm ml-2"><i class="fa fa-search-plus"></i>
+      Search</button>
+    <button type="reset" class="btn btn-outline-danger btn-sm ml-2"><i class="fas fa-circle-notch"></i>
+      Reset</button>
+
+  </form> -->
+
+  <!-- <div *ngFor="let i of orderFormList"> -->
+
+
+  <div *ngFor="let earr of orderFormList;let i = index" >
+    <div >
+      <!-- data-toggle="modal" data-target="#myModal" -->
+      <!-- <a class="text-dark" style="cursor: pointer; text-decoration: none;"> -->
+      &nbsp; &nbsp;
+      <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse"
+          aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Order_Number:-
+          {{earr.order_id}}</button>
+          <div class="text-right">
+            <button class="btn btn-warning" type="button" data-toggle="collapse" data-target=".multi-collapse"
+            aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Total Price:-
+            {{earr.total_price}}</button></div>
+            <b>Order_Date:- </b> {{earr.order_date|dateFormater}}
+           <br>
+            <b>Delivery_Date:- </b>{{earr.delivery_date}}
+      </div>
+
+      &nbsp; 
+      <div class="row  bg-light " *ngFor="let e of orderList[i];">
+
+        <div class="col-xs-1"></div>
+        <div class="col-md-2">
+
+          <img src="http://nenosystems.com:9097/NCSDOCS/api/doc/{{e.image_id}}" height="100px" width="100px">
+        </div>
+        <div class="col-md-4">
+          <ol style="list-style-type:none;">
+            <li><b>Product_Name:- </b>{{e.productName}}</li>
+            <li><b>Model_No:- </b>{{e.modelNo}}</li>
+
+            <li><b>Quantity:- </b>{{e.quantity}}</li>
+            <li><b>Price:- </b>{{e.price*e.quantity}}</li>
+            <li><b>Payment_Mode:- </b>{{e.payment_mode}}</li>
+
+
+          </ol>
+        </div>
+        <!-- <div>Order_Date:- {{e.order_date|dateFormater}} &nbsp;
+          <br>
+          Delivery_Date:- {{e.delivery_date}}
+        </div> -->
+
+        <!-- <button title="Edit" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editModal"
+            (click)="get(e.id)">
+            <i class="fa fa-edit"></i>
+          </button> &nbsp;
+          <button title="Delete" class="btn btn-outline-danger btn-sm" (click)="delete(e.id)">
+            <i class="fa fa-trash"></i>
+          </button>
+          &nbsp;
+
+
+          <input type="checkbox" name="button" [value]="checked" (change)="checkedShipp($event)"
+            (click)="getShipping(e.id)"> -->
+
+        <div class="col-md-4">
+          <hr>
+        </div>
+
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
   
-              <div class="form-group form-row">
-                <label for="orderId" class="col-sm-2 col-form-label col-form-label-sm">Order_Id </label>
-                <div class="col">
-                  <input id="orderId" name="orderId"  placeholder="Enter orderId" type="text" class="form-control form-control-sm"
-                     [(ngModel)]="form.data.orderId" 
-                    #orderId="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && orderId.invalid }" required>
-                  <div *ngIf="f.submitted && orderId.invalid" class="invalid-feedback">
-                    <div *ngIf="orderId.errors.required" style="text-align: left;"> orderId is required</div>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="form-group form-row">
-                <label for="total_price" class="col-sm-2 col-form-label col-form-label-sm">Total_Amount </label>
-                <div class="col">
-                  <input id="total_price" name="total_price"  placeholder="Enter total_price" type="text" class="form-control form-control-sm"
-                    required [(ngModel)]="form.data.total_price" #total_price="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && total_price.invalid }" required>
-                  <div *ngIf="f.submitted && total_price.invalid" class="invalid-feedback">
-                    <div *ngIf="total_price.errors.required" style="text-align: left;"> price is required</div>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="form-group form-row">
-                <label for="quantity" class="col-sm-2 col-form-label col-form-label-sm">Quantity: </label>
-                <div class="col">
-                  <input id="quantity" name="quantity"  placeholder="Enter quantity" type="text" class="form-control form-control-sm"
-                    required [(ngModel)]="form.data.quantity" #quantity="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && quantity.invalid }" required>
-                  <div *ngIf="f.submitted && quantity.invalid" class="invalid-feedback">
-                    <div *ngIf="quantity.errors.required" style="text-align: left;"> quantity is required</div>
-                  </div>
-                </div>
-              </div>
-  
-  
-              <div class="form-group form-row">
-                <label for="discount" class="col-sm-2 col-form-label col-form-label-sm">Discount</label>
-                <div class="col">
-                  <input id="no_of_items" name="no_of_items"  placeholder="Enter discount" type="text" class="form-control form-control-sm"
-                    required [(ngModel)]="form.data.discount" #discount="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && discount.invalid }" required>
-                  <div *ngIf="f.submitted && discount.invalid" class="invalid-feedback">
-                    <div *ngIf="discount.errors.required" style="text-align: left;"> discount is required</div>
-                  </div>
-                </div>
-              </div>
-  
-  
-              <div class="form-group form-row">
-                <label for="description" class="col-sm-2 col-form-label col-form-label-sm">Description</label>
-                <div class="col">
-                  <input id="description" name="description"  placeholder="Enter description" type="text" class="form-control form-control-sm"
-                    required [(ngModel)]="form.data.description" #description="ngModel"
-                    [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required>
-                  <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
-                    <div *ngIf="description.errors.required" style="text-align: left;"> billing_Address is required</div>
-                  </div>
-                </div>
-              </div>
-  
-  
-              <div class="modal-footer">
-                <button class="btn btn-outline-primary btn-sm">
-                  <i class="fa fa-save"></i>
-                  Save
-                </button>
-                <button class="btn btn-outline-secondary btn-sm" data-dismiss="modal"><i class="fa fa-window-close"></i>
-                  Close</button>
-              </div>
-            </form>
+</div>
+
+          
+          
+          
+          
+          
           </div>
         </div>
         <div class="col-sm-3">
@@ -199,4 +226,8 @@
       </div>
     </div>
     </div>
-  
+
+
+    
+    
+   
